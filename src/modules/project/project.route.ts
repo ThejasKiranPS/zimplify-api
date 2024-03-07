@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify/types/instance";
 import { $projectRef } from "./project.schema";
-import { createProjectHandler, getProjectByIdHandler, getProjectsHandler } from "./project.controller";
+import { createProjectHandler, deleteProjectHandler, getProjectByIdHandler, getProjectsHandler } from "./project.controller";
 
 export async function projectRoutes(server: FastifyInstance) {
     server.post(
@@ -23,5 +23,14 @@ export async function projectRoutes(server: FastifyInstance) {
             }
         },
         getProjectByIdHandler
+    )
+    server.delete(
+        '/:projectId',
+        {
+            schema: {
+                params: $projectRef('byProjectId')
+            }
+        },
+        deleteProjectHandler
     )
 }

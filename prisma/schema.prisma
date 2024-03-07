@@ -21,5 +21,10 @@ model Project {
   buildDir      String
   rootDir       String
 
+  status String
+
+  subDomain String
+  template String
+
   createdAt DateTime @default(now())
 }
