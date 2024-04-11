@@ -13,6 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+}
 model Project {
   id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name          String
@@ -25,6 +32,8 @@ model Project {
 
   subDomain String
   template String
+
+  env String // TODO: store as JSON?
 
   createdAt DateTime @default(now())
 }

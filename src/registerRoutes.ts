@@ -1,10 +1,13 @@
 import { FastifyInstance } from "fastify/types/instance";
 import { projectSchemas } from "./modules/project/project.schema";
 import { projectRoutes } from "./modules/project/project.route";
+import { userRoutes } from "./modules/user/user.route";
+import { userSchemas } from "./modules/user/user.schema";
 
 export function registerRoutes(server: FastifyInstance) {
     const modules = [
-        projectSchemas
+        projectSchemas,
+        userSchemas
     ];
 
     for (const module of modules) {
@@ -13,5 +16,6 @@ export function registerRoutes(server: FastifyInstance) {
         }
     }
 
+    server.register(userRoutes, { prefix: '/api/user' })
     server.register(projectRoutes, { prefix: '/api/project' })
 }
