@@ -32,6 +32,7 @@ model Project {
 
   subDomain String
   template String
+  containerId String?
 
   env String // TODO: store as JSON?
 

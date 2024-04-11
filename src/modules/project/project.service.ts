@@ -26,7 +26,11 @@ export async function getProjectById(projectId: string) {
 }
 
 export async function deleteProject(projectId: string) {
+  try {
   const res = await dAxios.delete(`${backend}/project/delete/${projectId}`);
+  } catch (e) {
+    console.error(e);
+  }
   return await prisma.project.delete({
     where: {
       id: projectId

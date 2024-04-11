@@ -20,6 +20,7 @@ CREATE TABLE "Project" (
     "status" TEXT NOT NULL,
     "subDomain" TEXT NOT NULL,
     "template" TEXT NOT NULL,
+    "containerId" TEXT,
     "env" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

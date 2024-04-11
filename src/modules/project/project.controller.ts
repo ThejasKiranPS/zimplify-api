@@ -11,6 +11,7 @@ export async function createProjectHandler(
   const project = await createProject(req.body)
   project.template = project.template.toLowerCase()
   await deployProject(project);
+  console.log('deployed')
   res.send(project)
 }
 

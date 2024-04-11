@@ -8,7 +8,8 @@ const createProjectSchema = z.object({
     buildCommand: z.string(),
     rootDir: z.string(),
     subDomain: z.string(),
-    template: z.string()
+    template: z.string(),
+    env: z.string()
 })
 
 const byProjectId = z.object({
