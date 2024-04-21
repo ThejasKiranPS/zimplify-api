@@ -6,4 +6,5 @@ export function getEnv(key: string, defaultValue?: string) {
         }
         throw new Error(`Environment variable ${key} is required`);
     }
+    return val;
 }

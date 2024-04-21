@@ -1,13 +1,18 @@
+import 'dotenv/config'
 import F from "fastify"
 import { registerRoutes } from "./registerRoutes";
 import cors from "@fastify/cors"
 import fastifyCookies from "@fastify/cookie";
 import { getEnv } from "./utils/env";
 
+
 const server = F()
 
+console.log(process.env)
+
 server.register(cors, {
-  origin: '*'
+  origin: getEnv('CLIENT_URL'),
+  credentials: true,
 })
 
 server.register(fastifyCookies, {
