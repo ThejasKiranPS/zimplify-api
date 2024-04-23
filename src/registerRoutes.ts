@@ -5,6 +5,7 @@ import { userRoutes } from "./modules/user/user.route";
 import { userSchemas } from "./modules/user/user.schema";
 import { githubRoutes } from "./modules/github/githubRoutes";
 import { integrationRoutes } from "./modules/integrations/integration.route";
+import { goProjectRoutes } from "./modules/project/project.go.route";
 
 export function registerRoutes(server: FastifyInstance) {
     const modules = [
@@ -21,5 +22,6 @@ export function registerRoutes(server: FastifyInstance) {
     server.register(userRoutes, { prefix: '/api/user' })
     server.register(integrationRoutes, { prefix: '/api/integration' })
     server.register(projectRoutes, { prefix: '/api/project' })
+    server.register(goProjectRoutes, { prefix: '/api/go/project' })
     server.register(githubRoutes, { prefix: '/api/github' })
 }
