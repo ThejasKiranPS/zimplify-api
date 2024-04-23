@@ -3,3 +3,7 @@ export enum ProjectStatus {
   deployed = "Deployed",
   failed = "Failed"
 }
+
+export enum IntegrationPlatform {
+  GITHUB = "GITHUB",
+}

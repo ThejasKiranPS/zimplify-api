@@ -6,10 +6,20 @@ import fastifyCookies from "@fastify/cookie";
 import { getEnv } from "./utils/env";
 
 
-const server = F()
+const logOptions = process.env.NODE_ENV === 'production' ? true : ({
+  transport: {
+    target: 'pino-pretty',
+    options: {
+      translateTime: 'HH:MM:ss Z',
+      ignore: 'pid,hostname',
+    },
+  },
+  redact: ['req.headers.authorization'],
+});
 
-console.log(process.env)
-
+const server = F({
+  logger: logOptions
+})
 server.register(cors, {
   origin: getEnv('CLIENT_URL'),
   credentials: true,
@@ -26,8 +36,9 @@ server.get('/ping', async function() {
 
 async function main() {
   try {
-    await server.listen({ port: 3001, host: '0.0.0.0' });
-    console.log(`Server ready`)
+    const port = Number.parseInt(getEnv('port'));
+    await server.listen({ port: port, host: '0.0.0.0' });
+    server.log.info(`Server listening on ${port}`)
   } catch (e) {
     console.error(e)
     process.exit(1)

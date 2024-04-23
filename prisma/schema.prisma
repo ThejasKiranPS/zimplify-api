@@ -19,21 +19,35 @@ model User {
   password  String
   name      String
   createdAt DateTime @default(now())
+
+  integrations Integrations[]
 }
+
+model Integrations {
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @db.Uuid
+
+  platform String // enums/IntegrationsPlatform
+
+  config Json
+
+  @@unique([userId, platform])
+}
+
 model Project {
-  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name          String
-  source        String
-  buildCommand  String
-  buildDir      String
-  rootDir       String
+  id           String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  source       String
+  buildCommand String
+  buildDir     String
+  rootDir      String
 
   status String
 
-  subDomain String
-  template String
-  releaseName String?
-  dockerImage String?
+  subDomain   String
+  template    String
+  containerId String?
+
   env String // TODO: store as JSON?
 
   createdAt DateTime @default(now())
