@@ -8,7 +8,8 @@ export async function createProjectHandler(
   }>,
   res: FastifyReply
 ) {
-  const project = await createProject(req.body)
+  const userId = req.user.id;
+  const project = await createProject(userId, req.body)
   project.template = project.template.toLowerCase()
   await deployProject(project);
   console.log('deployed')
@@ -21,7 +22,8 @@ export async function getProjectByIdHandler(
   }>,
   res: FastifyReply
 ) {
-  const project = await getProjectById(req.params.projectId);
+  const userId = req.user.id;
+  const project = await getProjectById(userId, req.params.projectId);
   res.send(project);
 }
 
@@ -30,7 +32,8 @@ export async function getProjectsHandler
     req: FastifyRequest,
     res: FastifyReply
   ) {
-  const projects = await getProjects();
+  const userId = req.user.id;
+  const projects = await getProjects(userId);
   res.send(projects)
 }
 
@@ -40,5 +43,6 @@ export async function deleteProjectHandler(
   }>,
   res: FastifyReply
 ) {
-  return await deleteProject(req.params.projectId)
+  const userId = req.user.id;
+  return await deleteProject(userId, req.params.projectId)
 }

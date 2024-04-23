@@ -11,7 +11,9 @@ export async function signUpHandler(
     const user = await createUser(req.body);
     rep
         // implement JWT
-        .setCookie('userId', user.id)
+        .setCookie('userId', user.id, {
+            path: '/',
+        })
         .send(user);
 }
 
@@ -30,7 +32,9 @@ export async function signInHandler(
         rep.status(401).send({ message: "Invalid password" });
     } else {
         rep
-            .setCookie('userId', user.id)
+            .setCookie('userId', user.id, {
+                path: '/',
+            })
             .send({ message: "Logged in" });
     }
 }
