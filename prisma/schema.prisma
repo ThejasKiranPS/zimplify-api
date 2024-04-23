@@ -8,6 +8,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator json {
+  provider = "prisma-json-types-generator"
+  // namespace = "PrismaJson"
+  // clientOutput = "<finds it automatically>"
+  // (./ -> relative to schema, or an importable path to require() it)
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -21,6 +28,7 @@ model User {
   createdAt DateTime @default(now())
 
   integrations Integrations[]
+  Project      Project[]
 }
 
 model Integrations {
@@ -37,7 +45,8 @@ model Integrations {
 model Project {
   id           String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name         String
-  source       String
+  /// [PProjectSource]
+  source       Json
   buildCommand String
   buildDir     String
   rootDir      String
@@ -51,4 +60,6 @@ model Project {
   env String // TODO: store as JSON?
 
   createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.Uuid
 }

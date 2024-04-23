@@ -17,13 +17,22 @@ export async function getRepositories(accessToken: string) {
   })
 }
 
+export async function getRepository(accessToken: string, repoId: number) {
+  const octokit = new Octokit({ auth: accessToken })
+
+  const res = await octokit.request('GET /repositories/{repoId}', {
+    repoId
+  })
+  return res.data as { full_name: string, owner: { login: string }, id: number, name: string };
+}
+
 const noRedirectsInstance = axios.create({
   maxRedirects: 0,
   validateStatus: () => true
 });
 
 
-export async function getRepository({
+export async function getRepositoryDownloadLink({
   accessToken,
   owner,
   repo,

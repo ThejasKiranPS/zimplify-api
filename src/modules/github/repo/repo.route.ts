@@ -6,5 +6,4 @@ export async function githubRepoRoutes(server: FastifyInstance) {
   server.addHook('preHandler', verifySession)
 
   server.get('/', getGithubReposHandler)
-  server.post('/download', downloadGithubRepoHandler)
 }

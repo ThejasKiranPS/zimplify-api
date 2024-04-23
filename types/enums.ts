@@ -7,3 +7,10 @@ export enum ProjectStatus {
 export enum IntegrationPlatform {
   GITHUB = "GITHUB",
 }
+
+export enum ProjectSourceType {
+  GITHUB = "GITHUB",
+  GITLAB = "GITLAB",
+  BITBUCKET = "BITBUCKET",
+  MANUAL = "MANUAL"
+}

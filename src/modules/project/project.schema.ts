@@ -1,9 +1,15 @@
 import { buildJsonSchemas } from 'fastify-zod';
 import { z } from 'zod';
+import { ProjectSourceType } from '../../../types/enums';
 
 const createProjectSchema = z.object({
     name: z.string(),
-    source: z.string(),
+    source: z.object({
+        type: z.nativeEnum(ProjectSourceType),
+        github: z.object({
+            repo: z.number(),
+        }).optional()
+    }),
     buildDir: z.string(),
     buildCommand: z.string(),
     rootDir: z.string(),
