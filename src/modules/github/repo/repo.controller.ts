@@ -15,7 +15,6 @@ export async function getGithubReposHandler(
     const userId = req!.user.id;
     const integration = await getGithubConfig(userId);
     const repos = await getRepositories(integration.config.accessToken);
-    await getRepository(integration.config.accessToken, 495340542);
     rep.send(repos)
   } catch (error) {
     console.log('error => ', error)
