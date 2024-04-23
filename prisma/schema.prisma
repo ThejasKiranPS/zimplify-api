@@ -32,8 +32,8 @@ model Project {
 
   subDomain String
   template String
-  containerId String?
-
+  releaseName String?
+  dockerImage String?
   env String // TODO: store as JSON?
 
   createdAt DateTime @default(now())
