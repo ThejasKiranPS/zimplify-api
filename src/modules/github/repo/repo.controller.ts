@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { getGithubConfig } from "../auth/github-auth.service";
-import { getRepositories, getRepository, getRepositoryDownloadLink } from "./repo.service";
+import { getRepositories, getRepository, getRepositoryBranches, getRepositoryDownloadLink } from "./repo.service";
 import { RepoIdSchema, RepoNameSchema } from './repo.schema';
 import { getAuthenticatedUser } from '../user/gh-user.service';
 import { ByProjectID } from '../../project/project.schema';
@@ -49,12 +49,26 @@ export async function downloadGithubRepoHandler(
     throw new Error('Repo not found')
   }
   const repo = await getRepository(integration.config.accessToken, project.source?.github?.repo)
+  const branch = project.source?.github?.branch
 
   const res = await getRepositoryDownloadLink({
     owner: repo.owner.login,
     accessToken: integration.config.accessToken,
     repo: repo.name,
+    branch: branch
   })
 
   rep.send(res)
+}
+
+export async function getGithubRepoBranches(
+  req: FastifyRequest<{
+    Params: RepoIdSchema
+  }>,
+  rep: FastifyReply
+) {
+  const integration = await getGithubConfig(req!.user.id);
+  console.log('repoId => ', req.params.repoId)
+  const branches = await getRepositoryBranches(integration.config.accessToken, req.params.repoId)
+  rep.send(branches)
 }

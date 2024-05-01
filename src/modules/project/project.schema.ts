@@ -8,6 +8,7 @@ const createProjectSchema = z.object({
         type: z.nativeEnum(ProjectSourceType),
         github: z.object({
             repo: z.number(),
+            branch: z.string()
         }).optional()
     }),
     buildDir: z.string(),
@@ -15,7 +16,7 @@ const createProjectSchema = z.object({
     rootDir: z.string(),
     subDomain: z.string(),
     template: z.string(),
-    env: z.string()
+    env: z.string(),
 })
 
 const byProjectId = z.object({

@@ -26,6 +26,18 @@ export async function getRepository(accessToken: string, repoId: number) {
   return res.data as { full_name: string, owner: { login: string }, id: number, name: string };
 }
 
+export type GH_Branch = {
+  name: string
+}
+export async function getRepositoryBranches(accessToken: string, repoId: number) {
+  const octokit = new Octokit({ auth: accessToken })
+
+  const branches = await octokit.request(`GET /repositories/${repoId}/branches`)
+  return branches.data.map((b: GH_Branch) => ({
+    name: b.name,
+  }))
+}
+
 const noRedirectsInstance = axios.create({
   maxRedirects: 0,
   validateStatus: () => true
@@ -36,13 +48,15 @@ export async function getRepositoryDownloadLink({
   accessToken,
   owner,
   repo,
+  branch
 }: {
   accessToken: string
   owner: string
   repo: string
+  branch: string
 }) {
 
-  const res = await noRedirectsInstance.get(`https://api.github.com/repos/${owner}/${repo}/tarball`, {
+  const res = await noRedirectsInstance.get(`https://api.github.com/repos/${owner}/${repo}/tarball/${branch}`, {
     headers: {
       'Accept': 'application/vnd.github+json',
       'Authorization': 'Bearer ' + accessToken,

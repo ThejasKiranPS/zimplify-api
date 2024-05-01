@@ -9,6 +9,7 @@ export interface ProjectSource {
     type: ProjectSourceType;
     github?: {
         repo: number;
+        branch: string;
     }
 }
 
