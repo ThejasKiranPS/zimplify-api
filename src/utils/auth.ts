@@ -5,6 +5,7 @@ export async function verifySession(req: FastifyRequest, rep: FastifyReply) {
   const cookies = req.cookies;
   const userId = cookies.userId;
   if (!userId) {
+    req.log.error("Not logged in");
     rep.status(401).send({ message: "Not logged in" });
     return;
   }

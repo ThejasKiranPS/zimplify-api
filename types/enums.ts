@@ -4,10 +4,6 @@ export enum ProjectStatus {
   failed = "Failed"
 }
 
-export enum IntegrationPlatform {
-  GITHUB = "GITHUB",
-}
-
 export enum ProjectSourceType {
   GITHUB = "GITHUB",
   GITLAB = "GITLAB",

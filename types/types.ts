@@ -1,6 +1,6 @@
 import { ProjectSourceType } from "./enums";
 
-interface GithubConfig {
+export interface GithubConfig {
     accessToken: string
 }
 

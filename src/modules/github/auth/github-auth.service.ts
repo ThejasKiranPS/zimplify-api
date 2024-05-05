@@ -1,8 +1,8 @@
 import axios from "axios";
 import { getEnv } from "../../../utils/env";
 import { prisma } from "../../../utils/prisma";
-import { IntegrationPlatform } from "../../../../types/enums";
 import { Integrations } from "@prisma/client";
+import { ProjectSourceType } from "../../../../types/enums";
 
 /**
  * Returns the access token from the code
@@ -26,7 +26,7 @@ export async function createGithubConfig(userId: string, accessToken: string) {
   const intergration = await prisma.integrations.create({
     data: {
       userId,
-      platform: IntegrationPlatform.GITHUB,
+      platform: ProjectSourceType.GITHUB,
       config: {
         accessToken
       }
@@ -40,7 +40,7 @@ export async function upsertGithubConfig(userId: string, accessToken: string) {
     where: {
       userId_platform: {
         userId,
-        platform: IntegrationPlatform.GITHUB
+        platform: ProjectSourceType.GITHUB
       }
     },
     update: {
@@ -50,7 +50,7 @@ export async function upsertGithubConfig(userId: string, accessToken: string) {
     },
     create: {
       userId,
-      platform: IntegrationPlatform.GITHUB,
+      platform: ProjectSourceType.GITHUB,
       config: {
         accessToken
       }
@@ -69,7 +69,7 @@ export async function getGithubConfig(userId: string) {
     where: {
       userId_platform: {
         userId,
-        platform: IntegrationPlatform.GITHUB
+        platform: ProjectSourceType.GITHUB
       }
     }
   })
