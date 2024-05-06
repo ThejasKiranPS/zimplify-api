@@ -12,6 +12,7 @@ export async function GH_RepoWebhookHandler(
     req.log.info('Received ping event')
     return res.send('pong')
   } else {
+    //@ts-ignore
     const repoId = req.body.repository.id;
     req.log.info('Received push event for repo %s', repoId)
     const project = await prisma.project.findFirst({

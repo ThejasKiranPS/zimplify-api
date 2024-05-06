@@ -1,9 +1,9 @@
-import { IntegrationPlatform } from "../../../types/enums";
+import { ProjectSourceType } from "../../../types/enums";
 import { prisma } from "../../utils/prisma";
 
 interface getIntegrationByPlatform {
   userId: string,
-  platform: IntegrationPlatform
+  platform: ProjectSourceType
 }
 export async function getIntegrationByPlatform({
   userId,

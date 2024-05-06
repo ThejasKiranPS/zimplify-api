@@ -1,8 +1,8 @@
 import { z } from 'zod'
-import { IntegrationPlatform } from '../../../types/enums'
+import { ProjectSourceType } from '../../../types/enums'
 
 const byPlatformSchema = z.object({
-  platform: z.nativeEnum(IntegrationPlatform)
+  platform: z.nativeEnum(ProjectSourceType)
 })
 
 export type ByPlatformSchema = z.infer<typeof byPlatformSchema>
