@@ -4,8 +4,10 @@ import { Octokit } from 'octokit'
 export async function getRepositories(accessToken: string) {
   const octokit = new Octokit({ auth: accessToken })
 
-  const { data } = await octokit.rest.repos.listForAuthenticatedUser()
-
+  const { data } = await octokit.rest.repos.listForAuthenticatedUser({
+    per_page: 1000
+  })
+  
   return data.map(repo => {
     return {
       name: repo.name,
