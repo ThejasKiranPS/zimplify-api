@@ -33,6 +33,7 @@ export async function createProjectHandler(
       req.log.error('Repo not found')
       return res.status(404).send({ message: 'Repo not found' })
     }
+    res.send(project)
     req.log.trace('Subscribing to push event for repo %s', "")
     await subscribeToGHRepoWebhook({
       accessToken,
@@ -44,7 +45,6 @@ export async function createProjectHandler(
   req.log.trace('Deploying project \n', project)
   await deployProject(project);
   req.log.trace('Project deployed successfully')
-  res.send(project)
 }
 
 export async function getProjectByIdHandler(
